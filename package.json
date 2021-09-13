@@ -1,0 +1,25 @@
+{
+  "name": "tutorial",
+  "version": "1.0.0",
+  "description": "js tutorial for kim and her lady friend pooh bear",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint .",
+    "start": "node ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "color": "^4.0.1",
+    "d3": "^7.0.1",
+    "http-server": "^13.0.1",
+    "snowpack": "^1.7.1"
+  },
+  "devDependencies": {
+    "eslint": "",
+    "eslint-config-airbnb-base": "",
+    "eslint-plugin-compat": "",
+    "eslint-plugin-import": ""
+  },
+  "type": "module"
+}
