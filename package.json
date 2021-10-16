@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "color": "^4.0.1",
     "d3": "^7.0.1",
     "http-server": "^13.0.1",
     "snowpack": "^1.7.1"
