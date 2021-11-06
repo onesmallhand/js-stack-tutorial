@@ -1,6 +1,7 @@
 // Copyright 2021 Observable, Inc.
 // Released under the ISC license.
 // https://observablehq.com/@d3/multi-line-chart
+//export default 
 function LineChart(data, {
   x = ([x]) => x, // given d in data, returns the (temporal) x-value
   y = ([, y]) => y, // given d in data, returns the (quantitative) y-value
@@ -150,3 +151,5 @@ function LineChart(data, {
 
   return Object.assign(svg.node(), {value: null});
 }
+
+export default LineChart
