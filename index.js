@@ -19,13 +19,13 @@ async function marketData() {
     const params = {
         access_key: '76886bee2a933c7704e11dd678337575',
     }
-   
-   
+
+
     // fetch is async io
     // response is a promise, the await ensures the promise is resolved
     const response = await fetch(`http://api.marketstack.com/v1/eod?access_key=${params.access_key}&symbols=AAPL,CRM`)
 
-    // there may be a lot of cycles spent converting json to something in memory, so use awai
+    // there may be a lot of cycles spent converting json to something in memory, so use await
     // apiResponse is a promise, await insures the promise is resolved.
     // you could move on without the await, and you'll get a promise, but then you need
     // to generate clever code that handles a promise that is not yet resolved
@@ -43,50 +43,30 @@ async function marketData() {
                 `on ${stockData['date']}`);
         });
     } */
-    return apiResponse
+    return apiResponse.data
 }
 
-const theGoodStuff = await marketData()
-window.x = theGoodStuff
+const theGoodStuff = await (await fetch('unemployment.json')).json()
 
-const unemployment = [
-     {division: "Bethesda-Rockville-Frederick, MD Met Div", date: '2000-01-01', unemployment: 2.6},
-     {division: "Bethesda-Rockville-Frederick, MD Met Div", date: '2000-02-01', unemployment: 2.6},
-     {division: "Bethesda-Rockville-Frederick, MD Met Div", date: '2000-03-01', unemployment: 2.6},
-     {division: "Bethesda-Rockville-Frederick, MD Met Div", date: '2000-04-01', unemployment: 2.6},
-     {division: "Bethesda-Rockville-Frederick, MD Met Div", date: '2000-05-01', unemployment: 2.7},
-     {division: "Bethesda-Rockville-Frederick, MD Met Div", date: '2000-06-01', unemployment: 2.7},
-     {division: "Bethesda-Rockville-Frederick, MD Met Div", date: '2000-07-01', unemployment: 2.7},
-     {division: "Bethesda-Rockville-Frederick, MD Met Div", date: '2000-08-01', unemployment: 2.6},
-     {division: "Bethesda-Rockville-Frederick, MD Met Div", date: '2000-09-01', unemployment: 2.6},
-     {division: "Bethesda-Rockville-Frederick, MD Met Div", date: '2000-10-01', unemployment: 2.6},
-     {division: "Bethesda-Rockville-Frederick, MD Met Div", date: '2000-11-01', unemployment: 2.6},
-     {division: "Bethesda-Rockville-Frederick, MD Met Div", date: '2000-12-01', unemployment: 2.6},
-     {division: "Bethesda-Rockville-Frederick, MD Met Div", date: '2001-01-01', unemployment: 2.7},
-     {division: "Bethesda-Rockville-Frederick, MD Met Div", date: '2001-02-01', unemployment: 2.7},
-     {division: "Bethesda-Rockville-Frederick, MD Met Div", date: '2001-03-01', unemployment: 2.8},
-]
-const chart = LineChart(unemployment, {
-    x: d => d.date,
+const chart = LineChart(theGoodStuff, {
+    x: d => new Date(d.date).getTime(),
     y: d => d.unemployment,
     z: d => d.division,
     yLabel: "↑ Unemployment (%)",
- //   width,
+    width: 1024,
     height: 500,
     color: "steelblue",
-   // voronoi // if true, show Voronoi overlay
-  })
-/*
-const chart = LineChart(theGoodStuff.data.slice(0, 10), {
-    
-    x: d => String(d.date).slice(0, 10), //anonymous function that returns a date
+})
+$('body').append(chart)
+
+
+const chart2 = LineChart(await marketData(), {
+    x: d => new Date(String(d.date).slice(0, 10)).getTime(), //anonymous function that returns a date
     y: d => d.close,
     z: d => d.symbol,
     yLabel: "↑ Closing Price (tbd)",
-   // width: 750,
-    //height: 500,
+    width: 1024,
+    height: 500,
     color: "steelblue",
-    //voronoi // if true, show Voronoi overlay
-  })
-*/
-  $('body').append(chart)
+})
+$('body').append(chart2)
